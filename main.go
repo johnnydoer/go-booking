@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"booking-app/helper"
+	"fmt"
+)
 
 // Set global variables such at booking name and total tickets.
 const conferenceTickets uint = 50
@@ -13,8 +16,14 @@ func main() {
 	greetUsers()
 
 	// Get user data.
+	firstName, lastName, email, userTickets := getUserData()
 
 	// Validate the input.
+	isValidName, isValidEmail, isValidTickets := helper.ValidateData(firstName, lastName, email, userTickets, remainingTickets)
+
+	if isValidName && isValidEmail && isValidTickets {
+		fmt.Println("Data is valid.")
+	}
 
 	// Book the tickets
 
@@ -29,9 +38,21 @@ func greetUsers() {
 	fmt.Printf("Welcome to %v booking application.\nWe have total of %v tickets and %v are still available.\nGet your tickets here to attend:\n", conferenceName, conferenceTickets, remainingTickets)
 }
 
-// func getUserData() {
-// 	var firstName, lastName, email string
-// 	var userTickets uint
+func getUserData() (string, string, string, uint) {
+	var firstName, lastName, email string
+	var userTickets uint
 
-// 	fmt.Printf()
-// }
+	fmt.Printf("Enter first name: ")
+	fmt.Scanln(&firstName)
+
+	fmt.Printf("Enter last name: ")
+	fmt.Scanln(&lastName)
+
+	fmt.Printf("Enter email ID: ")
+	fmt.Scanln(&email)
+
+	fmt.Printf("Enter number of tickets you want to purchase: ")
+	fmt.Scanln(&userTickets)
+
+	return firstName, lastName, email, userTickets
+}
