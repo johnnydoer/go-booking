@@ -32,14 +32,23 @@ func main() {
 		fmt.Println("Data is invalid.")
 	}
 
-	// Book the tickets.
-	bookTickets(firstName, lastName, email, userTickets)
+	for {
+		// Book the tickets.
+		bookTickets(firstName, lastName, email, userTickets)
 
-	// Print booking information.
+		// Print booking information.
+		firstNames := getFirstNames()
+		fmt.Printf("The first names of all the bookings are:\n%v", firstNames)
 
-	// Email the booking information asynchronously.
+		// Email the booking information asynchronously.
 
-	// Use switch case for city.
+		// Use switch case for city.
+
+		// Break loop.
+		if remainingTickets == 0 {
+			break
+		}
+	}
 }
 
 func greetUsers() {
@@ -84,4 +93,14 @@ func bookTickets(firstName, lastName, email string, userTickets uint) {
 	fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v.\n", firstName, lastName, userTickets, email)
 
 	fmt.Printf("%v remaining tickets.\n", remainingTickets)
+}
+
+func getFirstNames() []string {
+	firstNames := []string{}
+
+	for _, booking := range bookings {
+		firstNames = append(firstNames, booking.firstName)
+	}
+
+	return firstNames
 }
