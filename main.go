@@ -3,6 +3,7 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
+	"sync"
 	"time"
 )
 
@@ -13,6 +14,7 @@ var remainingTickets uint = 50
 var conferenceName string = "Go Conference"
 
 var bookings = []UserData{}
+var wg = sync.WaitGroup{}
 
 type UserData struct {
 	firstName, lastName, email string
@@ -39,10 +41,11 @@ func main() {
 
 		// Print booking information.
 		firstNames := getFirstNames()
-		fmt.Printf("The first names of all the bookings are:\n%v", firstNames)
+		fmt.Printf("The first names of all the bookings are:\n%v\n", firstNames)
 
 		// Email the booking information asynchronously.
-		sendEmail(userTickets, firstName, lastName, email)
+		wg.Add(1)
+		go sendEmail(userTickets, firstName, lastName, email)
 
 		// Use switch case for city.
 		city := "London"
@@ -64,6 +67,8 @@ func main() {
 			break
 		}
 	}
+
+	wg.Wait()
 }
 
 func greetUsers() {
@@ -129,4 +134,5 @@ func sendEmail(userTickets uint, firstName, lastName, email string) {
 	fmt.Printf("Sending ticket:\n %v \n to email address %v.\n", ticket, email)
 	fmt.Println("##################")
 
+	wg.Done()
 }
