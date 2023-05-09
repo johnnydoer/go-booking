@@ -23,17 +23,17 @@ func main() {
 	// Greet users to the booking system.
 	greetUsers()
 
-	// Get user data.
-	firstName, lastName, email, userTickets := getUserData()
-
-	// Validate the input.
-	isValidName, isValidEmail, isValidTickets := helper.ValidateData(firstName, lastName, email, userTickets, remainingTickets)
-
-	if !(isValidName && isValidEmail && isValidTickets) {
-		fmt.Println("Data is invalid.")
-	}
-
 	for {
+		// Get user data.
+		firstName, lastName, email, userTickets := getUserData()
+
+		// Validate the input.
+		isValidName, isValidEmail, isValidTickets := helper.ValidateData(firstName, lastName, email, userTickets, remainingTickets)
+
+		if !(isValidName && isValidEmail && isValidTickets) {
+			fmt.Println("Data is invalid.")
+		}
+
 		// Book the tickets.
 		bookTickets(firstName, lastName, email, userTickets)
 
@@ -45,7 +45,20 @@ func main() {
 		sendEmail(userTickets, firstName, lastName, email)
 
 		// Use switch case for city.
+		city := "London"
 
+		switch city {
+		case "New York":
+			//
+		case "Singapore", "Hog Kong":
+			//
+		case "London", "Berlin":
+			//
+		case "Mexico City":
+			//
+		default:
+			fmt.Println("No valid city selected.")
+		}
 		// Break loop.
 		if remainingTickets == 0 {
 			break
