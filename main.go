@@ -3,6 +3,7 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
+	"time"
 )
 
 // Set global variables such at booking name and total tickets.
@@ -41,6 +42,7 @@ func main() {
 		fmt.Printf("The first names of all the bookings are:\n%v", firstNames)
 
 		// Email the booking information asynchronously.
+		sendEmail(userTickets, firstName, lastName, email)
 
 		// Use switch case for city.
 
@@ -103,4 +105,15 @@ func getFirstNames() []string {
 	}
 
 	return firstNames
+}
+
+func sendEmail(userTickets uint, firstName, lastName, email string) {
+	time.Sleep(50 * time.Second)
+
+	var ticket = fmt.Sprintf("%v tickets for %v %v", userTickets, firstName, lastName)
+
+	fmt.Println("##################")
+	fmt.Printf("Sending ticket:\n %v \n to email address %v.\n", ticket, email)
+	fmt.Println("##################")
+
 }
